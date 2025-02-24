@@ -4,31 +4,6 @@ docker, nginx, nodejs, mongodb, mongo-express(GUI), tfjs-node
 
 ## AWS EC2
 
-#### Basic usage on Amazon Linux
-
-```sh
-sudo yum update -y
-sudo yum install -y docker git
-sudo systemctl start docker
-sudo systemctl enable docker
-sudo curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-sudo chmod +x /usr/local/bin/docker-compose
-sudo usermod -aG docker $USER
-sudo service docker restart
-git clone https://github.com/shinich39/docker-node-example miku
-cd miku
-sudo cp startup.service /etc/systemd/system/miku.service
-sudo systemctl daemon-reload
-sudo systemctl enable miku
-sudo systemctl start miku
-journalctl -fu miku.service
-
-# update
-cd miku
-git pull
-sudo docker-compose up -d --build
-```
-
 1. Install docker on EC2
 
 ```sh
@@ -40,7 +15,7 @@ sudo apt update -y  # Ubuntu
 sudo yum install -y docker     # Amazon Linux
 sudo apt install -y docker.io  # Ubuntu
 
-# start & enable Docker
+# start & enable docker
 sudo systemctl start docker
 sudo systemctl enable docker
 
@@ -66,7 +41,7 @@ sudo apt install -y git # Ubuntu
 # startup.service WorkingDirectory is set to /home/ec2-user/miku
 cd /home/ec2-user
 git clone https://github.com/shinich39/docker-node-example miku
-# git clone https://<USERNAME>:<ACCESS_TOEKN>@github.com/shinich39/docker-node-example.git miku
+# git clone https://shinich39:<ACCESS_TOEKN>@github.com/shinich39/docker-node-example.git miku
 cd miku
 ```
 
@@ -86,10 +61,17 @@ sudo systemctl start miku
 sudo systemctl status miku
 
 # https://www.commandlinux.com/man-page/man1/journalctl.1.html
-#  Print live tail Logs
+# Print live tail Logs
 journalctl -fu miku.service
 # Print last logs
 journalctl -xeu miku.service
+```
+
+## Rebuild after update github repo
+
+```sh
+# /home/ec2-user/miku
+cd node && git pull && cd .. && sudo docker-compose up -d --build
 ```
 
 ## Docker
