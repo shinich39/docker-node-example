@@ -114,6 +114,9 @@ docker rm -v -f $(docker ps -qa)
 
 # remove all images
 docker image remove -f $(docker images -a -q)
+
+# local hostname in container(NOT localhost, 127.0.0.1)
+host.docker.internal
 ```
 
 ## Docker Compose
