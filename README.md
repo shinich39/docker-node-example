@@ -82,10 +82,10 @@ sudo systemctl start miku
 sudo systemctl status miku
 
 # https://www.commandlinux.com/man-page/man1/journalctl.1.html
-# Print last logs
-journalctl -xeu miku.service
 #  Print live tail Logs
 journalctl -fu miku.service
+# Print last logs
+journalctl -xeu miku.service
 ```
 
 ## Docker
@@ -101,6 +101,14 @@ docker exec -it <container id|name> /bin/bash
 
 # remove all dangling images 
 docker image prune
+
+docker container prune
+
+# remove all containers
+docker rm -v -f $(docker ps -qa)
+
+# remove all images
+docker image remove -f $(docker images -a -q)
 ```
 
 ## Docker Compose
