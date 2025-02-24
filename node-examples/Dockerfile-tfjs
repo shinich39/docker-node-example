@@ -1,0 +1,13 @@
+FROM node:22-slim
+WORKDIR /app
+COPY package.json package-lock.json ./
+RUN apt-get update || : && apt-get install -y \
+    python3 \
+    libcairo2-dev \
+    libsdl-pango-dev \
+    build-essential
+RUN npm ci && \
+    npm rebuild @tensorflow/tfjs-node --build-from-source 
+COPY . .
+CMD ["node", "bin/app.js"]
+EXPOSE 3000

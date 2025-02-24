@@ -1,0 +1,13 @@
+[Unit]
+Description=My Docker Compose
+After=network.target docker.service
+Requires=docker.service
+
+[Service]
+Restart=always
+WorkingDirectory=/home/ec2-user/miku
+ExecStart=/usr/local/bin/docker-compose up
+ExecStop=/usr/local/bin/docker-compose down
+
+[Install]
+WantedBy=multi-user.target

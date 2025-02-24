@@ -1,0 +1,22 @@
+FROM node:22-alpine
+WORKDIR /app
+COPY package.json package-lock.json ./
+RUN apk add --no-cache --virtual .build-deps \
+    gcc \
+    libc-dev \
+    make \
+    openssl-dev \
+    pcre2-dev \
+    zlib-dev \
+    linux-headers \
+    perl-dev \
+    bash \
+    alpine-sdk \
+    findutils \
+    curl \
+    && npm ci \
+    && apk del --no-network .build-deps
+RUN 
+COPY . .
+CMD ["node", "bin/app.js"]
+EXPOSE 3000
