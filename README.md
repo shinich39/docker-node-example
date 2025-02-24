@@ -7,7 +7,6 @@ docker, nginx, nodejs, mongodb, mongo-express(GUI), tfjs-node
 #### Basic usage on Amazon Linux
 
 ```sh
-# Amazon Linux
 sudo yum update -y
 sudo yum install -y docker git
 sudo systemctl start docker
@@ -23,6 +22,11 @@ sudo systemctl daemon-reload
 sudo systemctl enable miku
 sudo systemctl start miku
 journalctl -fu miku.service
+
+# update
+cd miku
+git pull
+sudo docker-compose up -d --build
 ```
 
 1. Install docker on EC2
@@ -102,6 +106,7 @@ docker exec -it <container id|name> /bin/bash
 # remove all dangling images 
 docker image prune
 
+# remove all stopped containers
 docker container prune
 
 # remove all containers
