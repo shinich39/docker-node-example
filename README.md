@@ -18,72 +18,72 @@ git clone https://github.com/shinich39/docker-node-example new-docker-compose &&
 git clone https://github.com/shinich39/docker-node-example new-docker-compose && cd new-docker-compose && rm -rf .git && cd ..
 ```
 
-### AWS EC2
-
-1. Install docker on EC2
+### Install on AWS EC2 (Amazon Linux)
 
 ```sh
-# update package manager
-sudo yum update -y  # Amazon Linux
-sudo apt update -y  # Ubuntu
+sudo yum update -y
+sudo yum install -y docker
 
-# install docker
-sudo yum install -y docker     # Amazon Linux
-sudo apt install -y docker.io  # Ubuntu
-
-# start & enable docker
 sudo systemctl start docker
 sudo systemctl enable docker
 
-# install docker-compose
 sudo curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 sudo chmod +x /usr/local/bin/docker-compose
 
-# add EC2 user to docker group
 sudo usermod -aG docker $USER
-
-# apply EC2 user
 sudo service docker restart
-```
 
-2. Install git
-
-```sh
-# install git
-sudo yum install -y git # Amazon Linux
-sudo apt install -y git # Ubuntu
-
-# save github access token
+sudo yum install -y git 
 git config --global credential.helper store
 
-# clone repo to /home/ec2-user/miku
-# startup.service WorkingDirectory is set to /home/ec2-user/miku
 cd /home/ec2-user
 git clone https://github.com/shinich39/docker-node-example miku
 # git clone https://shinich39:<ACCESS_TOEKN>@github.com/shinich39/docker-node-example.git miku
 cd miku
-```
 
-3. Test docker-compose
-
-```sh
 sudo docker-compose up -d --build
-```
+sudo docker-compose logs -f
+# check logs...
 
-4. Auto start on boot
-
-```sh
 sudo cp startup.service /etc/systemd/system/miku.service
 sudo systemctl daemon-reload
-sudo systemctl enable miku
 sudo systemctl start miku
+sudo systemctl enable miku
 sudo systemctl status miku
+```
 
-# https://www.commandlinux.com/man-page/man1/journalctl.1.html
-# Print live tail Logs
-journalctl -fu miku.service
-# Print last logs
-journalctl -xeu miku.service
+### Install on AWS EC2 (Ubuntu)
+
+```sh
+sudo apt update -y
+sudo apt install -y docker.io
+
+sudo systemctl start docker
+sudo systemctl enable docker
+
+sudo curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
+
+sudo usermod -aG docker $USER
+sudo service docker restart
+
+sudo apt install -y git 
+git config --global credential.helper store
+
+cd /home/ec2-user
+git clone https://github.com/shinich39/docker-node-example miku
+# git clone https://shinich39:<ACCESS_TOEKN>@github.com/shinich39/docker-node-example.git miku
+cd miku
+
+sudo docker-compose up -d --build
+sudo docker-compose logs -f
+# check logs...
+
+sudo cp startup.service /etc/systemd/system/miku.service
+sudo systemctl daemon-reload
+sudo systemctl start miku
+sudo systemctl enable miku
+sudo systemctl status miku
 ```
 
 ## Rebuild after update github repo
@@ -93,16 +93,31 @@ journalctl -xeu miku.service
 cd node && git pull && cd .. && sudo docker-compose up -d --build
 ```
 
+## journalctl
+
+```sh 
+# Print live tail Logs
+journalctl -fu miku.service
+# Print last logs
+journalctl -xeu miku.service
+```
+
 ## Docker
 
 ```sh
+# show containers
+docker ps
+
+# show images
+docker images
+
 # attach to existing shell
-docker attach <container id|name>
-docker attach --sig-proxy=false <container id|name> 
+docker attach \<CONTAINER\>
+docker attach --sig-proxy=false \<CONTAINER\> 
 
 # attach to new shell
-docker exec -it <container id|name> /bin/sh
-docker exec -it <container id|name> /bin/bash
+docker exec -it \<CONTAINER\> /bin/sh
+docker exec -it \<CONTAINER\> /bin/bash
 
 # remove all dangling images 
 docker image prune
@@ -123,17 +138,17 @@ host.docker.internal
 ## Docker Compose
 
 ```sh
-sudo docker-compose up -d
+docker-compose up -d
 
-sudo docker-compose down
-sudo docker-compose restart
-sudo docker-compose logs -f
+docker-compose down
+docker-compose restart
+docker-compose logs -f
 
-# update(rebuild)
-sudo docker-compose up -d --build
+# rebuild when file changes
+docker-compose up -d --build
 ```
 
-## Trouble Shootings
+## Trouble Shooting
 
 - Permission denied on macbook after run docker-compose with sudo in Mac OS
 
@@ -155,3 +170,4 @@ docker attach --sig-proxy=false <container id|name>
 - [docker-mongo](https://hub.docker.com/_/mongo)
 - [docker-mongo-express](https://hub.docker.com/_/mongo-express)
 - [docker-nginx](https://hub.docker.com/_/nginx)
+- [journalctl](https://www.commandlinux.com/man-page/man1/journalctl.1.html)
