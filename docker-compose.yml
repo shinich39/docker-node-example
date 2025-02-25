@@ -28,7 +28,6 @@ services:
       ME_CONFIG_BASICAUTH: true
       ME_CONFIG_BASICAUTH_USERNAME: admin
       ME_CONFIG_BASICAUTH_PASSWORD: 1234
-      ME_CONFIG_OPTIONS_READONLY: true
 
   # https://hub.docker.com/_/node
   node:
