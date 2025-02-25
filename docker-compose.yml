@@ -31,7 +31,7 @@ services:
 
   # https://hub.docker.com/_/node
   node:
-    build: .
+    build: ./node
     container_name: node
     restart: always
     # ports:
