@@ -53,6 +53,9 @@ sudo service docker restart
 sudo yum install -y git # Amazon Linux
 sudo apt install -y git # Ubuntu
 
+# save github access token
+git config --global credential.helper cache
+
 # clone repo to /home/ec2-user/miku
 # startup.service WorkingDirectory is set to /home/ec2-user/miku
 cd /home/ec2-user
