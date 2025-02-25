@@ -18,6 +18,12 @@ git clone https://github.com/shinich39/docker-node-example new-docker-compose &&
 git clone https://github.com/shinich39/docker-node-example new-docker-compose && cd new-docker-compose && rm -rf .git && cd ..
 ```
 
+### Edit files
+
+- ./nginx/nginx.conf
+- ./docker-compose.yml
+- ./node/
+
 ### Install on AWS EC2 (Amazon Linux)
 
 ```sh
