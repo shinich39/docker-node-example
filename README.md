@@ -2,7 +2,23 @@
 
 docker, nginx, nodejs, mongodb, mongo-express(GUI), tfjs-node
 
-## AWS EC2
+## Getting Started
+
+### Build
+
+- win
+
+```sh
+git clone https://github.com/shinich39/docker-node-example new-docker-compose && cd new-docker-compose && rm -r -Force .git && cd ..
+```
+
+- mac
+
+```sh
+git clone https://github.com/shinich39/docker-node-example new-docker-compose && cd new-docker-compose && rm -rf .git && cd ..
+```
+
+### AWS EC2
 
 1. Install docker on EC2
 
