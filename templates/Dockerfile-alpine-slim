@@ -16,7 +16,6 @@ RUN apk add --no-cache --virtual .build-deps \
     curl \
     && npm ci \
     && apk del --no-network .build-deps
-RUN 
 COPY . .
 CMD ["node", "bin/app.js"]
 EXPOSE 3000
