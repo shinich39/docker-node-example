@@ -165,7 +165,7 @@ sudo chown -R $(whoami) ~/.docker
 - Could not detach from docker process in Mac OS
 
 ```sh
-docker attach --sig-proxy=false <container id|name>
+docker attach --sig-proxy=false \<CONTAINER\>
 # The use Ctrl + C to detach
 ```
 
